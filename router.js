@@ -1,5 +1,5 @@
 const Patch = require('typed-patch');
-const Store = require('db-plumbing-map');
+const { Store, DoesNotExist } = require('db-plumbing-map');
 const debug = require('debug')('db-plumbing-rest-server');
 const express = require('express');
 
@@ -57,7 +57,7 @@ class Router {
         let index_data = this.index_map[req.params.index];
         if (index_data) 
             this.store.findAll(index_data.index, index_data.param_map(req))
-                .then( result => res.json( { result } ))
+                .then( result => res.json( result ))
                 .catch( err  => { console.warn(err); res.status(500).send(err.toString());} );
         else
             res.status(404).send('unknown index: ' + req.params.index);
@@ -76,7 +76,7 @@ class Router {
             this.store.find(uid)
                 .then( result => res.json( result ) )
                 .catch( err => {
-                    if (err instanceof Store.DoesNotExist)
+                    if (err instanceof DoesNotExist)
                         res.status(404).send(`${uid} not found`);
                     else
                         res.status(500).send(err.toString());
@@ -93,6 +93,7 @@ class Router {
     bulk(req,res) {
         try {
             let body = req.body;
+            debug('bulk', body);
             let patch = Patch.fromJSON(body);
             debug('bulk', patch);
             this.store.bulk(patch)

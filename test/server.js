@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const { Router, IndexMap } = require('../router.js');
-const Store = require('db-plumbing-map')
+const { Store } = require('db-plumbing-map')
 
 
 class TestObject { 
