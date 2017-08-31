@@ -23,7 +23,7 @@ describe('Restful DB API server', () => {
                 .put('/items/34')
                 .set('content-type', 'application/json')
                 .send({uid:34, a:2, b:3})
-            .then(res => { expect(res).to.have.status(200); })
+            .then(res => { expect(res).to.have.status(204); })
             .then(() => chai.request(app).get('/items/34'))
             .then(res => {
                 expect(res).to.have.status(200);
@@ -38,17 +38,17 @@ describe('Restful DB API server', () => {
                 .put('/items/1')
                 .set('content-type', 'application/json')
                 .send({uid:1, a:'hello', b:'world'})
-            .then(res => { expect(res).to.have.status(200); })
+            .then(res => { expect(res).to.have.status(204); })
             .then(() => chai.request(app)
                 .put('/items/2')
                 .set('content-type', 'application/json')
                 .send({uid:2, a:'hello', b:'friend'}))
-            .then(res => { expect(res).to.have.status(200); })
+            .then(res => { expect(res).to.have.status(204); })
             .then(() => chai.request(app)
                 .put('/items/3')
                 .set('content-type', 'application/json')
                 .send({uid:3, a:'goodbye', b:'Mr. Chips'}))
-            .then(res => { expect(res).to.have.status(200); })
+            .then(res => { expect(res).to.have.status(204); })
             .then(() => chai.request(app)
                 .get('/findAll/byA?&a=hello'))
             .then(res=> {
@@ -66,17 +66,17 @@ describe('Restful DB API server', () => {
                 .put('/items/1')
                 .set('content-type', 'application/json')
                 .send({uid:1, a:'hello', b:'world'})
-            .then(res => { expect(res).to.have.status(200); })
+            .then(res => { expect(res).to.have.status(204); })
             .then(() => chai.request(app)
                 .put('/items/2')
                 .set('content-type', 'application/json')
                 .send({uid:2, a:'hello', b:'friend'}))
-            .then(res => { expect(res).to.have.status(200); })
+            .then(res => { expect(res).to.have.status(204); })
             .then(() => chai.request(app)
                 .put('/items/3')
                 .set('content-type', 'application/json')
                 .send({uid:3, a:'goodbye', b:'Mr. Chips'}))
-            .then(res => { expect(res).to.have.status(200); })
+            .then(res => { expect(res).to.have.status(204); })
             .then(() => chai.request(app)
                 .post('/bulk')
                 .set('content-type', 'application/json')
@@ -85,7 +85,7 @@ describe('Restful DB API server', () => {
             .then(res => {
                 expect(res).to.have.status(200);
                 expect(res).to.be.json;
-                expect(res.body.result.b).to.equal('pizza');
+                expect(res.body.b).to.equal('pizza');
                 })
             .then(()=>done(), done);
         }

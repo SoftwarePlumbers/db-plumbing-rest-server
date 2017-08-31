@@ -57,7 +57,7 @@ class Router {
         let index_data = this.index_map[req.params.index];
         if (index_data) 
             this.store.findAll(index_data.index, index_data.param_map(req))
-                .then( result => res.json( { ok: true, result } ) )
+                .then( result => res.json( { result } ))
                 .catch( err  => { console.warn(err); res.status(500).send(err.toString());} );
         else
             res.status(404).send('unknown index: ' + req.params.index);
@@ -74,7 +74,7 @@ class Router {
         debug(this.store.idMap);
         if (uid)
             this.store.find(uid)
-                .then( result => res.json( { ok: true, result } ) )
+                .then( result => res.json( result ) )
                 .catch( err => {
                     if (err instanceof Store.DoesNotExist)
                         res.status(404).send(`${uid} not found`);
@@ -96,7 +96,7 @@ class Router {
             let patch = Patch.fromJSON(body);
             debug('bulk', patch);
             this.store.bulk(patch)
-                .then(update => res.status(200).json({ ok:true, count: update }))
+                .then(update => res.status(200).json({ count: update }))
                 .catch(err => {
                     console.warn('bulk',err);
                     res.status(500).send(err.toString());
@@ -119,7 +119,7 @@ class Router {
         let object = this.store.type.fromJSON(body);
         if (object) {
             this.store.update(object)
-                .then( () => res.sendStatus(200) )
+                .then( (result) => res.sendStatus(204) )
                 .catch( err => res.status(500).send(err.toString()));
         } else {
             res.status(500).send('Bad object data');   
@@ -134,7 +134,7 @@ class Router {
     remove(req, res) {
         let uid = this.index_map._key(req.params.uid);
         this.store.remove(uid)
-            .then( () => res.sendStatus(200))
+            .then( () => res.sendStatus(204))
             .catch( err  => { console.warn(err); res.status(500).send(err.toString()); } );        
     }
 
@@ -147,7 +147,7 @@ class Router {
         let index_data = this.index_map[req.params.index];
         if (index_data) 
             this.store.removeAll(index_data.index, index_data.param_map(req))
-                .then( () => res.sendStatus(200) )
+                .then( () => res.sendStatus(204) )
                 .catch( err  => { console.warn(err); res.status(500).send(err.toString()); } );
         else
             res.status(404).send('unknown index: ' + req.params.index);

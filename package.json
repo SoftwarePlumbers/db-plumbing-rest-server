@@ -31,7 +31,8 @@
     "eslint": "^4.5.0",
     "ink-docstrap": "^1.3.0",
     "jsdoc": "^3.5.4",
-    "mocha": "^3.5.0"
+    "mocha": "^3.5.0",
+    "morgan": "^1.8.2"
   },
   "dependencies": {
     "db-plumbing-map": "^0.1.3",
