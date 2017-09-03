@@ -28,6 +28,9 @@ describe('Restful DB API server', () => {
             .then(res => {
                 expect(res).to.have.status(200);
                 expect(res).to.be.json;
+                expect(res.body.uid).to.equal(34);
+                expect(res.body.a).to.equal(2);
+                expect(res.body.b).to.equal(3);
             })
             .then(()=>done(), done);
     });

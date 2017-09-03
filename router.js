@@ -71,7 +71,7 @@ class Router {
     find(req, res) {
         let uid = this.index_map._key(req.params.uid);
         debug('find', typeof uid, uid);
-        debug(this.store.idMap);
+        //debug(this.store.idMap);
         if (uid)
             this.store.find(uid)
                 .then( result => res.json( result ) )
