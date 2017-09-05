@@ -78,8 +78,10 @@ class Router {
                 .catch( err => {
                     if (err instanceof DoesNotExist)
                         res.status(404).send(`${uid} not found`);
-                    else
+                    else {
+                        console.warn(err);
                         res.status(500).send(err.toString());
+                    }
                 });
         else
             res.status(500).send('Bad uid');
