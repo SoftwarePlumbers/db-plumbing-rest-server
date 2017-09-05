@@ -1,6 +1,6 @@
 {
   "name": "db-plumbing-rest-server",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Simple rest database interface, compatible with db-plumbing-map and db-plumbing-mongo",
   "main": "router.js",
   "scripts": {

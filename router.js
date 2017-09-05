@@ -43,7 +43,7 @@ class Router {
     * @param store A document store used to back this service
     * @param index {IndexMap} maps index filter function name (used in stores) to a function which extracts filter values from a request.
     */
-    constructor(store, index_map) {
+    constructor(store, index_map = new IndexMap()) {
         this.store=store;
         this.index_map=index_map;
     }
